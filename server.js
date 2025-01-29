@@ -15,10 +15,15 @@ app.use(express.static('public'));
 // GitHub API endpoint to check if the user has forked the repo
 app.post('/check-fork', async (req, res) => {
     const { username } = req.body;
-    const repo = 'mrfrankzw/SUBZERO-BOT';
+    const repo = 'mrfrank-ofc/SUBZERO-BOT';
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // Get token from environment variables
 
     try {
-        const response = await axios.get(`https://api.github.com/repos/${repo}/forks`);
+        const response = await axios.get(`https://api.github.com/repos/${repo}/forks`, {
+            headers: {
+                Authorization: `Bearer ${GITHUB_TOKEN}`,
+            },
+        });
         const forks = response.data;
         const hasForked = forks.some(fork => fork.owner.login === username);
 
