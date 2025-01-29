@@ -1,0 +1,10 @@
+
+services:
+  - type: web
+    name: my-web-app
+    docker:
+      build: .
+      port: 80
+    env:
+      - key: NODE_ENV
+        value: production
